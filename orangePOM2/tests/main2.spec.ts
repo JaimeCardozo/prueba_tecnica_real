@@ -35,5 +35,5 @@ test('Recruitment', async ({context}) => {
     await recruitment.saveNext()
     await recruitment.clickHire()
     await recruitment.saveNext()
-    await pageOrange.pause()
+    await recruitment.validateHire()
 })

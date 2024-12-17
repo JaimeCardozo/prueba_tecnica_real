@@ -1,4 +1,4 @@
-import { expect, type Locator, type Page } from '@playwright/test'
+import {expect, type Locator, type Page } from '@playwright/test'
 import{url, credentials, candidates, apiEndpoint, uploads, interview} from '../utils/globals'
 import { waitForResponse } from '../utils/waitResponse';
 import path from 'path';
@@ -32,6 +32,7 @@ export class Recruitment{
     private readonly buttonMarkInterviewPassed: Locator;
     private readonly buttonOfferJob: Locator;
     private readonly buttonHire: Locator;
+    private readonly textHire: Locator;
 
     constructor(page:Page){
         this.page = page;
@@ -62,6 +63,7 @@ export class Recruitment{
         this.buttonMarkInterviewPassed = page.locator('button:has-text(" Mark Interview Passed")')
         this.buttonOfferJob = page.locator('button:has-text(" Offer Job ")')
         this.buttonHire = page.locator('button:has-text(" Hire ")')
+        this.textHire = page.locator('p.oxd-text.oxd-text--subtitle-2', { hasText: 'Status: Hired' });
     }
 
     async clickButtonToAdd () {
@@ -130,6 +132,10 @@ export class Recruitment{
 
     async clickHire(){
         await this.buttonHire.click()
+    }
+
+    async validateHire(){
+        await expect(this.textHire).toBeVisible()
     }
 
 }
